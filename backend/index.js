@@ -1,8 +1,10 @@
 const express = require('express')
 const app = express()
-const PORT = 5000
+const PORT = process.env.PORT||5000;
 const mongoose = require('mongoose')
 const actorRoutes = require('./routes/actor')
+require('dotenv').config()
+const MONOGO_URL=process.env.MONOGO_URL
 
 app.use(express.json())//middleware
 
@@ -12,7 +14,7 @@ app.get("/", (req,res) =>{
 
 app.use('/actors', actorRoutes)
 
-mongoose.connect('mongodb://127.0.0.1:27017/moviestars', {}).then(()=> console.log("DB connected"))
+mongoose.connect(MONOGO_URL, {}).then(()=> console.log("DB connected"))
 .catch(err => console.error(err))
 
 
